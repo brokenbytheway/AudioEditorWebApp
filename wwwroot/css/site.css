@@ -1,0 +1,785 @@
+﻿/* =========================================================
+   🌐 БАЗОВАЯ РАЗМЕТКА СТРАНИЦЫ
+   ========================================================= */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: #1c0426;
+    color: white;
+    font-family: "Segoe UI", sans-serif;
+    text-align: center;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Заголовок страницы */
+.page-title {
+    margin-top: 30px;
+    font-size: 48px;
+    color: #e0beed;
+    text-shadow: 0 0 18px #a86fd8;
+}
+
+footer {
+    flex-shrink: 0;
+    background-color: #2b0a36;
+    color: #e0beed;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #702ea7;
+}
+
+/* =========================================================
+   📂 БЛОК ЗАГРУЗКИ ФАЙЛА
+   ========================================================= */
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.upload-card {
+    background-color: #2b0a36;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 16px #a86fd8;
+}
+
+    .upload-card p {
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+/* Поле выбора файла */
+input[type="file"] {
+    margin-bottom: 15px;
+    color: white;
+}
+
+/* =========================================================
+   🔘 КНОПКИ
+   ========================================================= */
+
+/* Основные кнопки */
+.main-btn {
+    background-color: #8e24aa;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+    .main-btn:hover {
+        background-color: #c151d4;
+    }
+
+/* Кнопка экспорта */
+.export-btn {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background-color: #8e24aa;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 14px rgba(168,111,216,0.5);
+    transition: background-color 0.3s ease;
+    z-index: 20;
+}
+
+    .export-btn:hover {
+        background-color: #c151d4;
+    }
+
+    .export-btn.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+        box-shadow: none;
+    }
+
+/* =========================================================
+   🌊 ЗВУКОВАЯ ВОЛНА
+   ========================================================= */
+
+.waveform-area {
+    margin: 30px auto;
+    background: #2b0a36;
+    border-radius: 10px;
+    box-shadow: 0 0 16px #702ea7;
+}
+
+/* =========================================================
+   🎛 ПАНЕЛЬ РЕДАКТОРА
+   ========================================================= */
+
+#editor-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.editor-controls {
+    margin: auto;
+    display: flex;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.control-group {
+    background-color: #2b0a36;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(168, 111, 216, 0.3);
+}
+
+    /* Отступы между кнопками */
+    .control-group .main-btn {
+        margin: 6px;
+    }
+
+    /* Немного уменьшенный текст подзаголовков */
+    .control-group h4 {
+        margin-bottom: 5px;
+    }
+
+.control-title {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #e0beed;
+    text-shadow: 0 0 8px #a86fd8;
+}
+
+/* Блок эффектов */
+.effect-section {
+    margin-bottom: 12px;
+}
+
+    .effect-section h4 {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #cfaee0;
+    }
+
+/* Блок редактирования */
+.edit-section {
+    margin-bottom: 12px;
+}
+
+    .edit-section h4 {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #cfaee0;
+    }
+
+/* =========================================================
+   🔊 УПРАВЛЕНИЕ ГРОМКОСТЬЮ (ПРЕДПРОСМОТР)
+   ========================================================= */
+
+.volume-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+    .volume-slider label {
+        color: #e0beed;
+        font-weight: 500;
+    }
+
+    .volume-slider input[type="range"] {
+        width: 150px;
+        accent-color: #a86fd8;
+    }
+
+/* =========================================================
+   ⏪ ПЕРЕМОТКА
+   ========================================================= */
+
+.rewind-controls {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.rewind-select {
+    background-color: #2b0a36;
+    color: #e0beed;
+    border: 1px solid #702ea7;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+/* =========================================================
+   📜 ВЫПАДАЮЩИЙ СПИСОК ЭФФЕКТОВ
+   ========================================================= */
+
+.dropdown-header {
+    cursor: pointer;
+    color: #cfaee0;
+    user-select: none;
+    transition: color 0.25s;
+}
+
+    .dropdown-header:hover {
+        color: #e0beed;
+    }
+
+.extra-effects-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    display: none;
+}
+
+    .extra-effects-list li {
+        padding: 6px 0;
+        color: #d9c0e8;
+        cursor: pointer;
+        transition: color 0.25s;
+    }
+
+        .extra-effects-list li:hover {
+            color: #ffffff;
+        }
+
+/* =========================================================
+   🪟 МОДАЛЬНЫЕ ОКНА
+   ========================================================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: #e0beed;
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    margin: 10% auto;
+    text-align: center;
+    color: #1c0426;
+    box-shadow: 0 0 16px #a86fd8;
+}
+
+.cancel-btn {
+    background-color: #8e24aa00;
+    color: #8e24aa;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+    .cancel-btn:hover {
+        background-color: #8e24aa28;
+    }
+
+/* =========================================================
+   💾 МОДАЛЬНОЕ ОКНО ЭКСПОРТА
+   ========================================================= */
+
+.export-modal {
+    width: 420px;
+}
+
+.export-section {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+    .export-section h4 {
+        margin-bottom: 6px;
+        font-size: 15px;
+        color: #1c0426;
+    }
+
+    .export-section label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+    }
+
+    .export-section select,
+    .export-section input[type="text"] {
+        width: 100%;
+        padding: 6px 8px;
+        border-radius: 6px;
+        border: 1px solid #a86fd8;
+        margin-top: 4px;
+    }
+
+select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f0f0f0;
+}
+
+option:disabled {
+    color: #999;
+}
+
+/* =========================================================
+   🚩 МАРКЕРЫ И РЕГИОНЫ WAVESURFER
+   ========================================================= */
+
+/* Маркеры (очень узкие регионы) */
+.wavesurfer-region[data-id^="marker-"] {
+    background: transparent !important;
+    width: 0 !important;
+    overflow: visible !important;
+    z-index: 5 !important;
+}
+
+    .wavesurfer-region[data-id^="marker-"]::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -1px;
+        width: 2px;
+        height: 100%;
+        background: rgba(255, 82, 82, 0.9);
+        pointer-events: none;
+    }
+
+    .wavesurfer-region[data-id^="marker-"]:hover {
+        background-color: rgba(255, 82, 82, 0.9) !important;
+        width: 4px !important;
+    }
+
+    .wavesurfer-region[data-id^="marker-"] .wavesurfer-handle {
+        display: none !important;
+    }
+
+    .wavesurfer-region[data-id^="marker-"] .wavesurfer-region-content {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        color: #333;
+        background: white;
+        padding: 2px 6px;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 10;
+    }
+
+/* Обычные регионы */
+.wavesurfer-region:not([data-id^="marker-"]) {
+    z-index: 4 !important;
+}
+
+/* Активный регион */
+.wavesurfer-region.active-region {
+    border: 2px solid #4CAF50 !important;
+}
+
+
+/* =========================================================
+   🔊 МОДАЛЬНОЕ ОКНО ГРОМКОСТИ
+   ========================================================= */
+
+.volume-controls {
+    margin: 20px 0;
+}
+
+.volume-slider-container {
+    margin-bottom: 20px;
+}
+
+    .volume-slider-container label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .volume-slider-container input[type="range"] {
+        width: 100%;
+        height: 8px;
+        -webkit-appearance: none;
+        background: linear-gradient(to right, #4CAF50, #FF9800, #F44336);
+        border-radius: 4px;
+        outline: none;
+        margin: 10px 0;
+    }
+
+        /* Индикатор для высоких значений */
+        .volume-slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #a86fd8;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background 0.2s;
+        }
+
+.volume-values {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.volume-db {
+    color: #666;
+    font-family: 'Courier New', monospace;
+}
+
+.volume-presets {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+    .volume-presets h4 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #666;
+    }
+
+.preset-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.preset-btn {
+    padding: 6px 12px;
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+    .preset-btn:hover {
+        background-color: #dee2e6;
+    }
+
+    .preset-btn.active {
+        background-color: #a86fd8;
+        color: white;
+        border-color: #a86fd8;
+    }
+
+.volume-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffecb5;
+    color: #856404;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+    font-size: 13px;
+}
+
+/* Изменение цвета ползунка при высоких значениях */
+input[type="range"][value="101"]::-webkit-slider-thumb,
+input[type="range"][value="102"]::-webkit-slider-thumb,
+input[type="range"][value="103"]::-webkit-slider-thumb,
+input[type="range"][value="104"]::-webkit-slider-thumb,
+input[type="range"][value="105"]::-webkit-slider-thumb,
+input[type="range"][value="106"]::-webkit-slider-thumb,
+input[type="range"][value="107"]::-webkit-slider-thumb,
+input[type="range"][value="108"]::-webkit-slider-thumb,
+input[type="range"][value="109"]::-webkit-slider-thumb,
+input[type="range"][value="110"]::-webkit-slider-thumb,
+input[type="range"][value="111"]::-webkit-slider-thumb,
+input[type="range"][value="112"]::-webkit-slider-thumb,
+input[type="range"][value="113"]::-webkit-slider-thumb,
+input[type="range"][value="114"]::-webkit-slider-thumb,
+input[type="range"][value="115"]::-webkit-slider-thumb,
+input[type="range"][value="116"]::-webkit-slider-thumb,
+input[type="range"][value="117"]::-webkit-slider-thumb,
+input[type="range"][value="118"]::-webkit-slider-thumb,
+input[type="range"][value="119"]::-webkit-slider-thumb,
+input[type="range"][value="120"]::-webkit-slider-thumb,
+input[type="range"][value="121"]::-webkit-slider-thumb,
+input[type="range"][value="122"]::-webkit-slider-thumb,
+input[type="range"][value="123"]::-webkit-slider-thumb,
+input[type="range"][value="124"]::-webkit-slider-thumb,
+input[type="range"][value="125"]::-webkit-slider-thumb,
+input[type="range"][value="126"]::-webkit-slider-thumb,
+input[type="range"][value="127"]::-webkit-slider-thumb,
+input[type="range"][value="128"]::-webkit-slider-thumb,
+input[type="range"][value="129"]::-webkit-slider-thumb,
+input[type="range"][value="130"]::-webkit-slider-thumb,
+input[type="range"][value="131"]::-webkit-slider-thumb,
+input[type="range"][value="132"]::-webkit-slider-thumb,
+input[type="range"][value="133"]::-webkit-slider-thumb,
+input[type="range"][value="134"]::-webkit-slider-thumb,
+input[type="range"][value="135"]::-webkit-slider-thumb,
+input[type="range"][value="136"]::-webkit-slider-thumb,
+input[type="range"][value="137"]::-webkit-slider-thumb,
+input[type="range"][value="138"]::-webkit-slider-thumb,
+input[type="range"][value="139"]::-webkit-slider-thumb,
+input[type="range"][value="140"]::-webkit-slider-thumb,
+input[type="range"][value="141"]::-webkit-slider-thumb,
+input[type="range"][value="142"]::-webkit-slider-thumb,
+input[type="range"][value="143"]::-webkit-slider-thumb,
+input[type="range"][value="144"]::-webkit-slider-thumb,
+input[type="range"][value="145"]::-webkit-slider-thumb,
+input[type="range"][value="146"]::-webkit-slider-thumb,
+input[type="range"][value="147"]::-webkit-slider-thumb,
+input[type="range"][value="148"]::-webkit-slider-thumb,
+input[type="range"][value="149"]::-webkit-slider-thumb,
+input[type="range"][value="150"]::-webkit-slider-thumb,
+input[type="range"][value="151"]::-webkit-slider-thumb,
+input[type="range"][value="152"]::-webkit-slider-thumb,
+input[type="range"][value="153"]::-webkit-slider-thumb,
+input[type="range"][value="154"]::-webkit-slider-thumb,
+input[type="range"][value="155"]::-webkit-slider-thumb,
+input[type="range"][value="156"]::-webkit-slider-thumb,
+input[type="range"][value="157"]::-webkit-slider-thumb,
+input[type="range"][value="158"]::-webkit-slider-thumb,
+input[type="range"][value="159"]::-webkit-slider-thumb,
+input[type="range"][value="160"]::-webkit-slider-thumb,
+input[type="range"][value="161"]::-webkit-slider-thumb,
+input[type="range"][value="162"]::-webkit-slider-thumb,
+input[type="range"][value="163"]::-webkit-slider-thumb,
+input[type="range"][value="164"]::-webkit-slider-thumb,
+input[type="range"][value="165"]::-webkit-slider-thumb,
+input[type="range"][value="166"]::-webkit-slider-thumb,
+input[type="range"][value="167"]::-webkit-slider-thumb,
+input[type="range"][value="168"]::-webkit-slider-thumb,
+input[type="range"][value="169"]::-webkit-slider-thumb,
+input[type="range"][value="170"]::-webkit-slider-thumb,
+input[type="range"][value="171"]::-webkit-slider-thumb,
+input[type="range"][value="172"]::-webkit-slider-thumb,
+input[type="range"][value="173"]::-webkit-slider-thumb,
+input[type="range"][value="174"]::-webkit-slider-thumb,
+input[type="range"][value="175"]::-webkit-slider-thumb,
+input[type="range"][value="176"]::-webkit-slider-thumb,
+input[type="range"][value="177"]::-webkit-slider-thumb,
+input[type="range"][value="178"]::-webkit-slider-thumb,
+input[type="range"][value="179"]::-webkit-slider-thumb,
+input[type="range"][value="180"]::-webkit-slider-thumb,
+input[type="range"][value="181"]::-webkit-slider-thumb,
+input[type="range"][value="182"]::-webkit-slider-thumb,
+input[type="range"][value="183"]::-webkit-slider-thumb,
+input[type="range"][value="184"]::-webkit-slider-thumb,
+input[type="range"][value="185"]::-webkit-slider-thumb,
+input[type="range"][value="186"]::-webkit-slider-thumb,
+input[type="range"][value="187"]::-webkit-slider-thumb,
+input[type="range"][value="188"]::-webkit-slider-thumb,
+input[type="range"][value="189"]::-webkit-slider-thumb,
+input[type="range"][value="190"]::-webkit-slider-thumb,
+input[type="range"][value="191"]::-webkit-slider-thumb,
+input[type="range"][value="192"]::-webkit-slider-thumb,
+input[type="range"][value="193"]::-webkit-slider-thumb,
+input[type="range"][value="194"]::-webkit-slider-thumb,
+input[type="range"][value="195"]::-webkit-slider-thumb,
+input[type="range"][value="196"]::-webkit-slider-thumb,
+input[type="range"][value="197"]::-webkit-slider-thumb,
+input[type="range"][value="198"]::-webkit-slider-thumb,
+input[type="range"][value="199"]::-webkit-slider-thumb,
+input[type="range"][value="200"]::-webkit-slider-thumb {
+    background: #ff5722;
+}
+
+/* =========================================================
+   🛎 УВЕДОМЛЕНИЯ
+   ========================================================= */
+
+.notification {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.notification-icon {
+    font-size: 18px;
+}
+
+.notification-text {
+    font-size: 14px;
+}
+
+
+.warning-content {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.warning-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.warning-text {
+    flex-grow: 1;
+}
+
+.warning-note {
+    font-size: 12px;
+    color: #856404;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+/* =========================================================
+   🔍 УПРАВЛЕНИЕ МАСШТАБОМ
+   ========================================================= */
+
+.zoom-controls {
+    background: #2b0a36;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    border: 1px solid #702ea7;
+    box-shadow: 0 0 14px rgba(168, 111, 216, 0.35);
+}
+
+.zoom-slider-container label {
+    color: #e0beed;
+}
+
+.zoom-slider-container #zoomValue {
+    background: #a86fd8;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 0 6px rgba(168, 111, 216, 0.8);
+}
+
+.zoom-slider-container input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    outline: none;
+    -webkit-appearance: none;
+    background: linear-gradient( to right, #a86fd8 0%, #a86fd8 0%, #4a2a5a 0%, #4a2a5a 100% );
+}
+
+    .zoom-slider-container input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #a86fd8;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 0 8px rgba(168, 111, 216, 0.8);
+    }
+
+    .zoom-slider-container input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #a86fd8;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 0 8px rgba(168, 111, 216, 0.8);
+    }
+
+.icon-btn {
+    background: #3a0f4d;
+    border: 1px solid #702ea7;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.2s;
+}
+
+    .icon-btn:hover {
+        background: #a86fd8;
+        color: white;
+        border-color: #a86fd8;
+    }
+
+    .icon-btn:active {
+        transform: scale(0.95);
+    }
+
+
+.quick-zoom-btn {
+    flex: 1;
+    padding: 5px 10px;
+    background-color: #3a0f4d;
+    color: #e0beed;
+    border: 1px solid #702ea7;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+    .quick-zoom-btn:hover {
+        background-color: #a86fd8;
+        color: white;
+    }
+
+    .quick-zoom-btn.active {
+        background-color: #a86fd8;
+        color: white;
+        border-color: #a86fd8;
+        box-shadow: 0 0 8px rgba(168, 111, 216, 0.8);
+    }
+
+        .quick-zoom-btn.active:hover {
+            background-color: #c151d4;
+        }

@@ -1,0 +1,323 @@
+﻿<!-- ========================================================= -->
+<!-- 🧩 Заголовок страницы -->
+<!-- ========================================================= -->
+<h2 class="page-title">🎶 Редактор аудиофайлов MySoundLab</h2>
+
+<!-- ========================================================= -->
+<!-- 💾 Кнопка экспорта (отображается только в редакторе) -->
+<!-- ========================================================= -->
+<button id="exportBtn" class="export-btn" style="display:none;">
+    💾 Экспорт
+</button>
+
+<!-- ========================================================= -->
+<!-- 📥 Блок загрузки аудиофайла -->
+<!-- ========================================================= -->
+<div id="upload-section" class="center-container">
+    <div class="upload-card">
+        <p>Загрузите аудиофайл для редактирования:</p>
+
+        <input type="file" id="audioFile" accept=".mp3,.wav" />
+        <button id="loadBtn" class="main-btn">Загрузить</button>
+    </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- 🎛 Основной блок редактора (скрыт до загрузки файла) -->
+<!-- ========================================================= -->
+<div id="editor-section" style="display: none;">
+
+    <!-- 🎧 Waveform -->
+    <div id="waveform" class="waveform-area"></div>
+
+    <!-- ⏱ Timeline -->
+    <div id="wave-timeline" style="margin-top: 5px; height: 20px;"></div>
+
+    <!-- ===================================================== -->
+    <!-- 🔍 Управление масштабом (Zoom) -->
+    <!-- ===================================================== -->
+    <div class="zoom-controls" style="margin-bottom: 10px;">
+        <div class="zoom-slider-container">
+
+            <label for="zoomSlider" style="display: flex; align-items: center; gap: 5px; margin-bottom: 5px;">
+                <span>🔍 Масштаб:</span>
+                <span id="zoomValue">100%</span>
+            </label>
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button id="zoomOutBtn" class="icon-btn" title="Уменьшить масштаб (Ctrl -)">➖</button>
+
+                <input type="range"
+                       id="zoomSlider"
+                       min="100"
+                       max="500"
+                       step="25"
+                       value="100"
+                       style="flex: 1;">
+
+                <button id="zoomInBtn" class="icon-btn" title="Увеличить масштаб (Ctrl +)">➕</button>
+            </div>
+
+            <!-- Предустановки масштаба -->
+            <div style="display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap;">
+                <button class="quick-zoom-btn" data-zoom="100" title="Базовый размер">100%</button>
+                <button class="quick-zoom-btn" data-zoom="200" title="2x увеличение">200%</button>
+                <button class="quick-zoom-btn" data-zoom="300" title="3x увеличение">300%</button>
+                <button class="quick-zoom-btn" data-zoom="400" title="4x увеличение">400%</button>
+                <button class="quick-zoom-btn" data-zoom="500" title="Максимальное увеличение">500%</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- 🎚 Панель управления редактором -->
+    <!-- ===================================================== -->
+    <div class="editor-controls">
+
+        <!-- =============================================== -->
+        <!-- 🎵 Блок воспроизведения -->
+        <!-- =============================================== -->
+        <div class="control-group playback-controls">
+            <h3 class="control-title">Воспроизведение</h3>
+
+            <!-- Кнопка воспроизведения / паузы -->
+            <button id="playPauseBtn" class="main-btn">
+                ▶ Воспроизвести / Пауза
+            </button>
+
+            <!-- Перемотка -->
+            <div class="rewind-controls">
+                <select id="rewindValue" class="rewind-select">
+                    <option value="5">5 сек</option>
+                    <option value="10">10 сек</option>
+                    <option value="15">15 сек</option>
+                    <option value="30">30 сек</option>
+                </select>
+
+                <button id="rewindBackBtn" class="main-btn">⏪ Назад</button>
+                <button id="rewindForwardBtn" class="main-btn">⏩ Вперёд</button>
+            </div>
+
+            <!-- Локальная громкость (предпросмотр) -->
+            <div class="volume-slider">
+                <label for="localVolume">Громкость:</label>
+                <input type="range" id="localVolume" min="0" max="1" step="0.01" value="1">
+            </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- ✨ Блок эффектов -->
+        <!-- =============================================== -->
+        <div class="control-group effects-controls">
+            <h3 class="control-title">Эффекты</h3>
+
+            <!-- Глобальная громкость -->
+            <div class="effect-section">
+                <h4>Громкость</h4>
+                <button id="volumeBtn" class="main-btn">🔊 Глобальная громкость</button>
+            </div>
+
+            <!-- Фейдинг -->
+            <div class="effect-section">
+                <h4>Фейдинг</h4>
+                <button id="fadeInBtn" class="main-btn">↗ Fade In</button>
+                <button id="fadeOutBtn" class="main-btn">↘ Fade Out</button>
+            </div>
+
+            <!-- Скорость -->
+            <div class="effect-section">
+                <h4>Скорость</h4>
+                <button id="speedBtn" class="main-btn">⏩ Изменить скорость</button>
+            </div>
+
+            <!-- Выпадающий список дополнительных эффектов -->
+            <div class="effect-section">
+                <h4 class="dropdown-header" id="extraEffectsToggle">
+                    Другие эффекты ▼
+                </h4>
+
+                <ul id="extraEffectsList" class="extra-effects-list">
+                    <li data-effect="reverb">Реверб</li>
+                    <li data-effect="distortion">Дисторшн</li>
+                    <li data-effect="chorus">Хорус</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- ✏️ Блок редактирования -->
+        <!-- =============================================== -->
+        <div class="control-group edit-controls">
+            <h3 class="control-title">Редактирование</h3>
+
+            <!-- Регионы -->
+            <div class="edit-section">
+                <h4>Регионы</h4>
+                <button id="createRegionBtn" class="main-btn">➕ Создать регион</button>
+                <button id="removeRegionBtn" class="main-btn">❌ Удалить регион</button>
+                <button id="cutBtn" class="main-btn">✂ Обрезать</button>
+            </div>
+
+            <!-- Маркеры -->
+            <div class="edit-section">
+                <h4>Маркеры</h4>
+                <button id="markerBtn" class="main-btn">🚩 Поставить флажок</button>
+                <button id="removeAllMarkersBtn" class="main-btn">🗑️ Удалить все флажки</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- ⚙ Модальные окна -->
+<!-- ========================================================= -->
+<!-- ===================== Скорость ===================== -->
+<div id="speedModal" class="modal">
+    <div class="modal-content">
+        <h3>Настройка скорости воспроизведения</h3>
+
+        <!-- Ползунок скорости -->
+        <input type="range" id="speedRange" min="0.5" max="2" step="0.1" value="1" />
+        <p>Текущая скорость: <span id="speedValue">1.0x</span></p>
+
+        <!-- Кнопки применения и отмены -->
+        <div class="modal-buttons">
+            <button id="cancelSpeedBtn" class="cancel-btn">Отмена</button>
+            <button id="applySpeedBtn" class="main-btn">Применить</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== Глобальная громкость ===================== -->
+<div id="volumeModal" class="modal">
+    <div class="modal-content">
+        <h3>🔊 Настройка глобальной громкости</h3>
+
+        <div class="volume-controls">
+
+            <!-- Ползунок громкости -->
+            <div class="volume-slider-container">
+                <label for="globalVolumeRange">Громкость:</label>
+                <input type="range" id="globalVolumeRange" min="0" max="200" step="1" value="100">
+
+                <div class="volume-values">
+                    <span id="globalVolumeValue">100%</span>
+                    <span class="volume-db" id="globalVolumeDB">0.0 dB</span>
+                </div>
+            </div>
+
+			<!-- Предустановки громкости -->
+            <div class="volume-presets">
+                <h4>Предустановки:</h4>
+                <div class="preset-buttons">
+                    <button class="preset-btn" data-volume="50">50% (-6 dB)</button>
+                    <button class="preset-btn" data-volume="75">75% (-2.5 dB)</button>
+                    <button class="preset-btn" data-volume="100" data-active="true">100% (0 dB)</button>
+                    <button class="preset-btn" data-volume="125">125% (+1.9 dB)</button>
+                    <button class="preset-btn" data-volume="150">150% (+3.5 dB)</button>
+                </div>
+            </div>
+
+            <!-- Предупреждение о клиппинге -->
+            <div class="volume-warning" id="volumeWarning" style="display: none;">
+                <div class="warning-content">
+                    <div class="warning-icon">⚠️</div>
+                    <div class="warning-text">
+                        <strong>Внимание:</strong> Громкость выше 100% может вызвать клиппинг (искажения).
+                        <div class="warning-note">
+                            При экспорте громкость будет увеличена, но предпросмотр ограничен 100% для безопасного прослушивания.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопки применения и отмены -->
+        <div class="modal-buttons">
+            <button id="cancelVolumeBtn" class="cancel-btn">Отмена</button>
+            <button id="applyVolumeBtn" class="main-btn">Применить</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== Экспорт ===================== -->
+<div id="exportModal" class="modal">
+    <div class="modal-content export-modal">
+        <h3>💾 Экспорт аудиофайла</h3>
+
+        <!-- Область экспорта -->
+        <div class="export-section">
+            <h4>Область экспорта</h4>
+
+            <label>
+                <input type="radio" name="exportScope" value="all" checked>
+                Весь трек
+            </label>
+
+            <label>
+                <input type="radio" name="exportScope" value="region">
+                Только выделенный фрагмент
+            </label>
+        </div>
+
+        <!-- Формат -->
+        <div class="export-group">
+            <label>Формат файла:</label>
+            <select id="exportFormat">
+                <option value="wav">WAV (без потерь)</option>
+                <option value="mp3">MP3 (сжатый)</option>
+            </select>
+        </div>
+
+        <!-- Настройки качества -->
+        <div class="export-section">
+            <h4>Качество</h4>
+
+            <div id="wavSettings" style="display: block;">
+                <label>
+                    Bit depth:
+                    <select id="bitDepth">
+                        <option value="16">16 bit</option>
+                        <option value="24">24 bit</option>
+                        <option value="32">32 bit float</option>
+                    </select>
+                </label>
+            </div>
+
+            <label>
+                Sample rate:
+                <select id="sampleRate">
+                    <option value="44100">44 100 Hz</option>
+                    <option value="48000">48 000 Hz</option>
+                    <option value="96000">96 000 Hz</option>
+                </select>
+            </label>
+
+            <div id="mp3Settings" style="display: none;">
+                <label>
+                    Bitrate:
+                    <select id="mp3Bitrate">
+                        <option value="128">128 kbps (стандартное)</option>
+                        <option value="192" selected>192 kbps (хорошее)</option>
+                        <option value="256">256 kbps (высокое)</option>
+                        <option value="320">320 kbps (максимальное)</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <!-- Имя файла -->
+        <div class="export-section">
+            <h4>Имя файла</h4>
+            <input type="text"
+                   id="exportFileName"
+                   value="mysoundlab_export.wav" />
+        </div>
+
+        <!-- Кнопки экспорта и отмены -->
+        <div class="modal-buttons">
+            <button id="cancelExportBtn" class="cancel-btn">Отмена</button>
+            <button id="confirmExportBtn" class="main-btn">Экспорт</button>
+        </div>
+    </div>
+</div>
