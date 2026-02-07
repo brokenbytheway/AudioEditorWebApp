@@ -31,9 +31,19 @@ const exportBtn = document.getElementById("exportBtn");
    =============================== */
 
 loadBtn.addEventListener("click", () => {
+    const input = document.getElementById("audioFile");
+
     const file = fileInput.files[0];
     if (!file) {
         alert("Выберите аудиофайл!");
+        return;
+    }
+
+    const allowedExt = [".mp3", ".wav"];
+    const ext = file.name.toLowerCase().slice(file.name.lastIndexOf("."));
+    if (!allowedExt.includes(ext)) {
+        alert("Разрешены только файлы в форматах MP3 и WAV!");
+        input.value = "";
         return;
     }
 
