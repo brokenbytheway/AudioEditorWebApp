@@ -1367,8 +1367,8 @@ const HOTKEY_HINTS = {
     fadeOutBtn: "Ctrl + O",
     speedBtn: "Ctrl + Shift + S",
     volumeBtn: "Ctrl + Shift + V",
-    zoomInBtn: "Ctrl + +",
-    zoomOutBtn: "Ctrl + -"
+    zoomInBtn: "Ctrl +",
+    zoomOutBtn: "Ctrl -"
 };
 
 function applyHotkeyTooltips() {
