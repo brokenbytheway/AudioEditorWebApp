@@ -28,7 +28,7 @@ jobs:
           username: deployer
           key: ${{ secrets.SSH_KEY }}
           source: "publish/*"
-          target: "/var/www/audioeditorwebapp/publish"
+          target: "/var/www/audioeditorwebapp"
 
       - name: Restart service
         uses: appleboy/ssh-action@v1.0.0
