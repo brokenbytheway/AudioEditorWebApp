@@ -1,0 +1,40 @@
+name: Deploy ASP.NET Core
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0'
+
+      - name: Publish application
+        run: dotnet publish -c Release -o publish
+
+      - name: Copy files to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: deployer
+          key: ${{ secrets.SSH_KEY }}
+          source: "publish/*"
+          target: "/var/www/audioeditorwebapp/publish"
+
+      - name: Restart service
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: deployer
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            sudo systemctl restart myapp
