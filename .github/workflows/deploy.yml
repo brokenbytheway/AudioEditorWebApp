@@ -3,7 +3,7 @@ name: Deploy ASP.NET Core
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-deploy:
