@@ -846,7 +846,7 @@ confirmExportBtn.addEventListener("click", async () => {
         }
 
         // Отправка запроса на сервер для обработки и экспорта
-        const response = await fetch("/api/export", {
+        const response = await fetch("/AudioEditorWebApp/api/export", {
             method: "POST",
             body: formData
         });
@@ -910,7 +910,7 @@ document.getElementById("cutBtn").addEventListener("click", async () => {
     formData.append("RegionEnd", region.end.toString().replace(",", "."));
 
     try {
-        const response = await fetch("/api/edit/cut", {
+        const response = await fetch("/AudioEditorWebApp/api/edit/cut", {
             method: "POST",
             body: formData
         });
