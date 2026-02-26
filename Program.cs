@@ -26,8 +26,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseHttpsRedirection();
-app.UsePathBase("/AudioEditorWebApp");
+app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
